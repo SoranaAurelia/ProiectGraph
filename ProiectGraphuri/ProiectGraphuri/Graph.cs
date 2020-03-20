@@ -72,6 +72,7 @@ namespace ProiectGraphuri
 
             return toReturn;
         }
+        
 
         /// <param name="type">Type of sort: 0 - minimal, 1 - maximal</param>
         /// <param name = "startVertex">Vertex to start the topological sort</param>
