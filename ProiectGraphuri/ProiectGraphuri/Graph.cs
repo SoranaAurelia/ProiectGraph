@@ -8,10 +8,10 @@ namespace ProiectGraphuri
 {
     abstract class Graph
     {
-        const int NMAX = 500;
+        public const int NMAX = 500;
 
-        int nmbVertices, nmbEdges;
-        List<int> []graph = new List<int>[NMAX];
+        public int nmbVertices, nmbEdges;
+        public List<int> []graph = new List<int>[NMAX];
 
 
         virtual public List<int>[] returnGraph() {
