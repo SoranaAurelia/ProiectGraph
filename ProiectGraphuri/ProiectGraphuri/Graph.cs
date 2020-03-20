@@ -108,9 +108,19 @@ namespace ProiectGraphuri
             return nr;
         }
 
+        virtual public bool isConnected()
+        {
+            int[] viz = new int[NMAX];
+            List<int> aux = new List<int>();
+            DFS(1, ref aux, ref viz);
+
+            if (aux.Count() < nmbVertices)
+                return false;
+            return true;
+        }
 
         /// <summary>Returns a list of pairs {how many vertices in that component, list of vertices}</summary>
-        virtual public List<Tuple<int, List<int>>> ConexComponents()
+        virtual public List<Tuple<int, List<int>>> ConectedComponents()
         {
             List<Tuple<int, List<int>>> toReturn = new List<Tuple<int, List<int>>>();
             int[] viz = new int[nmbVertices + 5];

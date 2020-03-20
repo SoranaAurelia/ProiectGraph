@@ -55,7 +55,7 @@ namespace ProiectGraphuri
                 }
 
                 string rez = "";
-                List<Tuple<int, List<int>>> list = ug.ConexComponents();
+                List<Tuple<int, List<int>>> list = ug.ConectedComponents();
                 foreach (var cc in list)
                 {
                     rez = rez + cc.Item1 + ": ";
@@ -73,10 +73,43 @@ namespace ProiectGraphuri
                 }*/
                 tbRez.Text = rez;
             }
-            
 
-            
-            
+            else if(clasa.Equals("DirectedGraph"))
+            {
+                DirectedGraph dg = new DirectedGraph(n);
+                dg.NmbEdges = m;
+
+                muchii = tbMuchii.Text.ToString();
+                int l = muchii.Count(), nr1 = 0, nr2 = 0;
+                bool seenSpace = false;
+
+                for (int i = 0; i < l; ++i)
+                {
+                    if (muchii[i] >= '0' && muchii[i] <= '9')
+                    {
+                        if (!seenSpace)
+                            nr1 = nr1 * 10 + (muchii[i] - '0');
+                        else nr2 = nr2 * 10 + (muchii[i] - '0');
+                    }
+                    else if (muchii[i] == ' ')
+                        seenSpace = true;
+                    else if (muchii[i] == '\r')
+                    {
+                        dg.addEdge(nr1, nr2);
+                        seenSpace = false;
+                        nr1 = 0;
+                        nr2 = 0;
+                    }
+                }
+                string rez = "";
+                bool con = dg.isConnected();
+                rez = rez + con;
+                tbRez.Text = rez;
+
+            }
+
+
+
         }
 
         public Form1()
