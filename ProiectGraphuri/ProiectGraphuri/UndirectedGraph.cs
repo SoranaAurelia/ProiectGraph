@@ -8,9 +8,20 @@ namespace ProiectGraphuri
 {
     class UndirectedGraph:Graph
     {
-        public UndirectedGraph(){ }
+        public UndirectedGraph(){
+            graph = new List<int>[NMAX];
+            for (int i = 1; i < NMAX - 5; ++i)
+                graph[i] = new List<int>();
+        }
         
-
+        /// <param name="n">Number of vertices</param>
+        public UndirectedGraph(int n)
+        {
+            graph = new List<int>[NMAX];
+            for (int i = 1; i <= n; ++i)
+                graph[i] = new List<int>();
+            nmbVertices = n;
+        }
         /// <param name="n">Number of vertices</param>
         /// <param name="m">Number of edges</param>
         /// <param name="edges">For each node the list of nodes it is connected to</param>
@@ -18,6 +29,7 @@ namespace ProiectGraphuri
         {
             nmbVertices = n;
             nmbEdges = m;
+            graph = new List<int>[NMAX];
             graph = edges;
         }
 
