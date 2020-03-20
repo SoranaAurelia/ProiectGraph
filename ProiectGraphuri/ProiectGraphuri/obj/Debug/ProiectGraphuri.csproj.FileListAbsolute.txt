@@ -1,0 +1,8 @@
+D:\Proiecte_VS\ProiectGraph\ProiectGraphuri\ProiectGraphuri\obj\Debug\ProiectGraphuri.csprojAssemblyReference.cache
+D:\Proiecte_VS\ProiectGraph\ProiectGraphuri\ProiectGraphuri\obj\Debug\ProiectGraphuri.Properties.Resources.resources
+D:\Proiecte_VS\ProiectGraph\ProiectGraphuri\ProiectGraphuri\obj\Debug\ProiectGraphuri.csproj.GenerateResource.cache
+D:\Proiecte_VS\ProiectGraph\ProiectGraphuri\ProiectGraphuri\bin\Debug\ProiectGraphuri.exe.config
+D:\Proiecte_VS\ProiectGraph\ProiectGraphuri\ProiectGraphuri\bin\Debug\ProiectGraphuri.exe
+D:\Proiecte_VS\ProiectGraph\ProiectGraphuri\ProiectGraphuri\bin\Debug\ProiectGraphuri.pdb
+D:\Proiecte_VS\ProiectGraph\ProiectGraphuri\ProiectGraphuri\obj\Debug\ProiectGraphuri.exe
+D:\Proiecte_VS\ProiectGraph\ProiectGraphuri\ProiectGraphuri\obj\Debug\ProiectGraphuri.pdb

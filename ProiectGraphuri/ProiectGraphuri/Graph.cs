@@ -14,10 +14,10 @@ namespace ProiectGraphuri
         List<int> []graph = new List<int>[NMAX];
 
 
-        List<int>[] returnGraph() {
+        virtual public List<int>[] returnGraph() {
             return graph;
         }
-        int[,] returnAdjiacentMatrix(){
+        virtual public int[,] returnAdjiacentMatrix(){
             int[,] toReturn = new int[NMAX, NMAX];
 
             for(int i = 1; i <= nmbVertices; ++i)
@@ -34,7 +34,7 @@ namespace ProiectGraphuri
         }
         
         /// <param name="startVertex">Vertex to start the BFS from.</param>
-        List<int> BFSArray(int startVertex) {
+        virtual public List<int> BFSArray(int startVertex) {
             List<int> toReturn = new List<int>();
             Queue<int> Q = new Queue<int>();
             int[] viz = new int[nmbVertices + 5];
@@ -69,7 +69,7 @@ namespace ProiectGraphuri
         }
 
         /// <param name="startVertex">Vertex to start the DFS from.</param>
-        List<int> DFSArray(int startVertex)
+        virtual public List<int> DFSArray(int startVertex)
         {
             List<int> toReturn = new List<int>();
             int[] viz = new int[nmbVertices + 5];
@@ -82,7 +82,7 @@ namespace ProiectGraphuri
 
         /// <param name="type">Type of sort: 0 - minimal, 1 - maximal</param>
         /// <param name = "startVertex">Vertex to start the topological sort</param>
-        List<int> sortTop(int type, int startVertex)
+        virtual public List<int> sortTop(int type, int startVertex)
         {
             List<int> toReturn = new List<int>();
             Queue<int> Q = new Queue<int>();
@@ -97,7 +97,7 @@ namespace ProiectGraphuri
             return toReturn;
         }
 
-        int numberOfIsolatedVertices()
+        virtual public int numberOfIsolatedVertices()
         {
             int nr = 0;
             for (int i = 1; i <= nmbVertices; ++i)
@@ -108,7 +108,7 @@ namespace ProiectGraphuri
 
 
         /// <summary>Returns a list of pairs {how many vertices in that component, list of vertices}</summary>
-        List<Tuple<int, List<int>>> ConexComponents()
+        virtual public List<Tuple<int, List<int>>> ConexComponents()
         {
             List<Tuple<int, List<int>>> toReturn = new List<Tuple<int, List<int>>>();
             int[] viz = new int[nmbVertices + 5];
@@ -126,7 +126,7 @@ namespace ProiectGraphuri
             return toReturn;
         }
 
-        bool existsPath(int from, int to)
+        virtual public bool existsPath(int from, int to)
         {
             foreach (int val in graph[from])
                 if (val == to)
@@ -141,7 +141,11 @@ namespace ProiectGraphuri
         
         /// <param name="from">'From' vertex</param>
         /// <param name="to">'To' vertex</param>
-        abstract public void addEdge(int from, int to);
+        virtual public void addEdge(int from, int to){
+            graph[from].Add(to);
+            graph[to].Add(from);
+
+        }
 
 
 
