@@ -33,7 +33,7 @@ namespace ProiectGraphuri
 
         }
         
-        /// <param name="startVertex">Vertex to start the BSF from.</param>
+        /// <param name="startVertex">Vertex to start the BFS from.</param>
         List<int> BFSArray(int startVertex) {
             List<int> toReturn = new List<int>();
             Queue<int> Q = new Queue<int>();
@@ -58,11 +58,17 @@ namespace ProiectGraphuri
             }
             return toReturn;
 
-            return toReturn;
-
+        }
+        private void DFS(int st, ref List<int> where, ref int[] viz)
+        {
+            viz[st] = 1;
+            where.Add(st);
+            foreach (int v in graph[st])
+                if (viz[v] == 0)
+                    DFS(v, ref where, ref viz);
         }
 
-        /// <param name="startVertex">Vertex to start the BFS from.</param>
+        /// <param name="startVertex">Vertex to start the DFS from.</param>
         List<int> DFSArray(int startVertex)
         {
             List<int> toReturn = new List<int>();
@@ -141,14 +147,7 @@ namespace ProiectGraphuri
 
 
 
-        private void DFS(int st, ref List<int> where, ref int[] viz)
-        {
-            viz[st] = 1;
-            where.Add(st);
-            foreach (int v in graph[st])
-                if (viz[v] == 0)
-                    DFS(v, ref where, ref viz);
-        }
+       
         private void DFS_forCC(int st, ref List<int> where, ref int[] viz, ref int modif)
         {
             viz[st] = 1;
