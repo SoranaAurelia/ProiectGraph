@@ -12,9 +12,20 @@ namespace ProiectGraphuri
 {
     public partial class Form1 : Form
     {
+        const int NMAX = 500;
+
+        int n, m;
+        List<int>[] gr = new List<int>[NMAX];
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
         public Form1()
         {
             InitializeComponent();
+            
         }
     }
 }
