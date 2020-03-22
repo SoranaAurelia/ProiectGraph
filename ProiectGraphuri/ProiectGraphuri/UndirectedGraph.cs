@@ -9,39 +9,28 @@ namespace ProiectGraphuri
     class UndirectedGraph:Graph
     {
         public UndirectedGraph(){
-            graph = new List<int>[NMAX];
-            for (int i = 1; i < NMAX - 5; ++i)
-                graph[i] = new List<int>();
+            graph = new List<Edge>[NMAX];
+            for (int i = 1; i < NMAX; ++i)
+                graph[i] = new List<Edge>();
         }
         
         /// <param name="n">Number of vertices</param>
         public UndirectedGraph(int n)
         {
-            graph = new List<int>[NMAX];
-            for (int i = 1; i <= n; ++i)
-                graph[i] = new List<int>();
+            graph = new List<Edge>[NMAX];
+            for (int i = 1; i < NMAX; ++i)
+                graph[i] = new List<Edge>();
             nmbVertices = n;
         }
-
-        /// <param name="n">Number of vertices</param>
-        /// <param name="m">Number of edges</param>
-        public UndirectedGraph(int n, int m)
-        {
-            graph = new List<int>[NMAX];
-            for (int i = 1; i <= n; ++i)
-                graph[i] = new List<int>();
-            nmbVertices = n;
-            nmbEdges = m;
-        }
-
+        
         /// <param name="n">Number of vertices</param>
         /// <param name="m">Number of edges</param>
         /// <param name="edges">For each node the list of nodes it is connected to</param>
-        public UndirectedGraph(int n, int m, List<int>[] edges)
+        public UndirectedGraph(int n, int m, List<Edge>[] edges)
         {
             nmbVertices = n;
             nmbEdges = m;
-            graph = new List<int>[NMAX];
+            graph = new List<Edge>[NMAX];
             graph = edges;
         }
 
@@ -68,19 +57,9 @@ namespace ProiectGraphuri
                 }
         }
 
-        public int NmbVertices
-        {
-            get { return nmbVertices; }
-            set { nmbVertices = value; }
-        }
-
-        public int NmbEdges
-        {
-            get { return nmbEdges; }
-            set { nmbEdges = value; }
-        }
         
-        public List<int>[] Graph
+        
+        public List<Edge>[] Graph
         {
             get { return graph; }
             set { graph = value; }
