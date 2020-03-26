@@ -8,10 +8,10 @@ namespace ProiectGraphuri
 {
     abstract class Graph
     {
-        const int NMAX = 500;
+        public const int NMAX = 500;
 
-        int nmbVertices, nmbEdges;
-        List<int> []graph = new List<int>[NMAX];
+        public int nmbVertices, nmbEdges;
+        public List<int> []graph;
 
 
         virtual public List<int>[] returnGraph() {
@@ -40,9 +40,11 @@ namespace ProiectGraphuri
             int[] viz = new int[nmbVertices + 5];
 
             Q.Enqueue(startVertex);
+            viz[startVertex] = 1;
 
-            foreach(int elemFirst in Q)
+            while(Q.Any())
             {
+                int elemFirst = Q.First();
                 toReturn.Add(elemFirst);
                 Q.Dequeue();
 
@@ -106,18 +108,28 @@ namespace ProiectGraphuri
             return nr;
         }
 
+        virtual public bool isConnected()
+        {
+            int[] viz = new int[NMAX];
+            List<int> aux = new List<int>();
+            DFS(1, ref aux, ref viz);
+
+            if (aux.Count() < nmbVertices)
+                return false;
+            return true;
+        }
 
         /// <summary>Returns a list of pairs {how many vertices in that component, list of vertices}</summary>
-        virtual public List<Tuple<int, List<int>>> ConexComponents()
+        virtual public List<Tuple<int, List<int>>> ConectedComponents()
         {
             List<Tuple<int, List<int>>> toReturn = new List<Tuple<int, List<int>>>();
             int[] viz = new int[nmbVertices + 5];
             int nmbModif = 0;
-            List<int> aux = new List<int>();
 
             for (int i = 1; i <= nmbVertices; ++i)
                 if(viz[i] == 0)
                 {
+                    List<int> aux = new List<int>();
                     aux.Clear();
                     nmbModif = 0;
                     DFS_forCC(i, ref aux, ref viz, ref nmbModif);

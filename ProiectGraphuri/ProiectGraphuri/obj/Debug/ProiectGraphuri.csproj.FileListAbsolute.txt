@@ -6,3 +6,12 @@ D:\Proiecte_VS\ProiectGraph\ProiectGraphuri\ProiectGraphuri\bin\Debug\ProiectGra
 D:\Proiecte_VS\ProiectGraph\ProiectGraphuri\ProiectGraphuri\bin\Debug\ProiectGraphuri.pdb
 D:\Proiecte_VS\ProiectGraph\ProiectGraphuri\ProiectGraphuri\obj\Debug\ProiectGraphuri.exe
 D:\Proiecte_VS\ProiectGraph\ProiectGraphuri\ProiectGraphuri\obj\Debug\ProiectGraphuri.pdb
+D:\Mirela\Desktop\C#\ProiectGraph\ProiectGraphuri\ProiectGraphuri\bin\Debug\ProiectGraphuri.exe.config
+D:\Mirela\Desktop\C#\ProiectGraph\ProiectGraphuri\ProiectGraphuri\bin\Debug\ProiectGraphuri.exe
+D:\Mirela\Desktop\C#\ProiectGraph\ProiectGraphuri\ProiectGraphuri\bin\Debug\ProiectGraphuri.pdb
+D:\Mirela\Desktop\C#\ProiectGraph\ProiectGraphuri\ProiectGraphuri\obj\Debug\ProiectGraphuri.csprojAssemblyReference.cache
+D:\Mirela\Desktop\C#\ProiectGraph\ProiectGraphuri\ProiectGraphuri\obj\Debug\ProiectGraphuri.Properties.Resources.resources
+D:\Mirela\Desktop\C#\ProiectGraph\ProiectGraphuri\ProiectGraphuri\obj\Debug\ProiectGraphuri.csproj.GenerateResource.cache
+D:\Mirela\Desktop\C#\ProiectGraph\ProiectGraphuri\ProiectGraphuri\obj\Debug\ProiectGraphuri.csproj.CoreCompileInputs.cache
+D:\Mirela\Desktop\C#\ProiectGraph\ProiectGraphuri\ProiectGraphuri\obj\Debug\ProiectGraphuri.exe
+D:\Mirela\Desktop\C#\ProiectGraph\ProiectGraphuri\ProiectGraphuri\obj\Debug\ProiectGraphuri.pdb
