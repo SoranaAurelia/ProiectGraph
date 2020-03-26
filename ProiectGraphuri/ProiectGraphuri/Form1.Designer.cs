@@ -34,8 +34,6 @@
             this.tbm = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tbMuchii = new System.Windows.Forms.TextBox();
-            this.tbClasa = new System.Windows.Forms.TextBox();
-            this.tbFunctia = new System.Windows.Forms.TextBox();
             this.tbRez = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -108,20 +106,6 @@
             this.tbMuchii.TabIndex = 5;
             this.tbMuchii.WordWrap = false;
             // 
-            // tbClasa
-            // 
-            this.tbClasa.Location = new System.Drawing.Point(33, 261);
-            this.tbClasa.Name = "tbClasa";
-            this.tbClasa.Size = new System.Drawing.Size(100, 20);
-            this.tbClasa.TabIndex = 6;
-            // 
-            // tbFunctia
-            // 
-            this.tbFunctia.Location = new System.Drawing.Point(146, 261);
-            this.tbFunctia.Name = "tbFunctia";
-            this.tbFunctia.Size = new System.Drawing.Size(100, 20);
-            this.tbFunctia.TabIndex = 7;
-            // 
             // tbRez
             // 
             this.tbRez.Location = new System.Drawing.Point(39, 53);
@@ -136,7 +120,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(139, 37);
             this.button1.TabIndex = 9;
-            this.button1.Text = "test me owo";
+            this.button1.Text = "Execute!";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -178,8 +162,6 @@
             this.panel1.Controls.Add(this.labelInfos);
             this.panel1.Controls.Add(this.labelAlgorithm);
             this.panel1.Controls.Add(this.labelClass);
-            this.panel1.Controls.Add(this.tbClasa);
-            this.panel1.Controls.Add(this.tbFunctia);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Location = new System.Drawing.Point(226, 1);
             this.panel1.Name = "panel1";
@@ -320,8 +302,6 @@
         private System.Windows.Forms.TextBox tbm;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tbMuchii;
-        private System.Windows.Forms.TextBox tbClasa;
-        private System.Windows.Forms.TextBox tbFunctia;
         private System.Windows.Forms.TextBox tbRez;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label4;
