@@ -23,11 +23,12 @@ namespace ProiectGraphuri
             adaug(1, n, 1, arr);
             nmbVertices = n;
         }
+
         public override void addNode(char inf)
         {
             throw new NotImplementedException();
         }
-
+        
         public void assign(int n, int[] arr, string ope)
         {
             op = ope;

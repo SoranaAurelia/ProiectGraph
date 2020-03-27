@@ -36,7 +36,12 @@ namespace ProiectGraphuri
         {
             nmbVertices = 0;
             nmbEdges = 0;
+            graph = new List<Edge>[NMAX];
+            for (int i = 0; i <= NMAX; i++)
+                graph[i] = new List<Edge>();
         }
+
+
         void formVectTati()
         {
             int[] viz = new int[NMAX];
@@ -132,7 +137,27 @@ namespace ProiectGraphuri
         }
         public override void randomizeGraph()
         {
-
+            Random r = new Random();
+            int n = r.Next(15);
+            graph = new List<Edge>[NMAX];
+            for (int i = 0; i <= n; i++)
+                graph[i] = new List<Edge>();
+            int rad = r.Next(n);
+            tati[r] = rad;
+            for(int i=1; i<=n; i++){
+                int nmb = r.Next(5);
+                for(int j=1; j<=nmb; j++)
+                {
+                    int val = r.Next(n);
+                    inr nr = 0;
+                    while(tati[val]!=0 && val != r && nr<10){
+                        val = r.Next(n);
+                        nr++;    
+                    }
+                    tati[val] = i;
+                    graph[i].Add(val);
+                }
+            }
         }
 
         private List<int> getKids(int i)
