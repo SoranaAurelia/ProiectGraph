@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProiectGraphuri
 {
-    abstract class BinaryTree:Tree
+    abstract class BinaryTree : Tree
     {
         public class Node
         {
@@ -40,25 +40,21 @@ namespace ProiectGraphuri
         public Node r;
 
 
-        public BinaryTree(){
-            r = new Node();
-        }
 
-        public BinaryTree(char x){
-            r = new Node(x);
-        }
 
         abstract public void addNode(char inf);
 
 
-        virtual public char[] inorder(){
+        virtual public char[] inorder()
+        {
             int aux = 0;
             char[] ret = new char[NMAX];
             inord(r, ref ret, ref aux);
             return ret;
         }
-        private void inord(Node r, ref char[] ret, ref int cate){
-            if(r == null)
+        private void inord(Node r, ref char[] ret, ref int cate)
+        {
+            if (r == null)
                 return;
             inord(r.St, ref ret, ref cate);
             ret[cate++] = r.Inf;
@@ -66,38 +62,45 @@ namespace ProiectGraphuri
         }
         
 
-        virtual public char[] postorder(){
+
+        virtual public char[] postorder()
+        {
             int aux = 0;
             char[] ret = new char[NMAX];
             postord(r, ref ret, ref aux);
             return ret;
         }
-        private void postord(Node r, ref char[] ret, ref int cate){
-            if(r == null)
+        private void postord(Node r, ref char[] ret, ref int cate)
+        {
+            if (r == null)
                 return;
             postord(r.St, ref ret, ref cate);
             postord(r.Dr, ref ret, ref cate);
             ret[cate++] = r.Inf;
         }
-       
 
-        virtual public char[] preorder(){
+
+        virtual public char[] preorder()
+        {
             int aux = 0;
             char[] ret = new char[NMAX];
             preord(r, ref ret, ref aux);
             return ret;
         }
-        private void preord(Node r, ref char[] ret, ref int cate){
-            if(r == null)
+
+        private void preord(Node r, ref char[] ret, ref int cate)
+        {
+            if (r == null)
                 return;
             ret[cate++] = r.Inf;
             preord(r.St, ref ret, ref cate);
             preord(r.Dr, ref ret, ref cate);
         }
 
-        virtual public char Root(){
+        virtual public char Root()
+        {
             return r.Inf;
         }
-        
+
     }
 }

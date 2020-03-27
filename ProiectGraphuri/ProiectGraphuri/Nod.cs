@@ -22,7 +22,6 @@ namespace ProiectGraphuri
             get { return fin; }
             set { fin = value; }
         }
-        
         public Nod()
         {
             nrcnt = 0;

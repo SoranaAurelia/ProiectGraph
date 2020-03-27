@@ -9,21 +9,23 @@ namespace ProiectGraphuri
     class Trie:Tree
     {
         Nod r;
-        private static int numberOfWords;
-        static List<Nod>[] cuv = new List<Nod>[NMAX];
-        static List<string> cuvinte = new List<string>();
+        private int numberOfWords;
+        List<Nod>[] cuv = new List<Nod>[NMAX];
+        List<string> cuvinte = new List<string>();
         public Trie()
         {
             r = new Nod();
+            numberOfWords = 0;
+            
         }
         public static Trie operator +(Trie me, string s)
         {
             int l = s.Length;
-            numberOfWords++;
-            cuv[numberOfWords] = new List<Nod>(l + 2);
+            me.numberOfWords++;
+            me.cuv[me.numberOfWords] = new List<Nod>(l + 2);
             for (int i = 0; i < l + 2; i++)
-                cuv[numberOfWords].Add(new Nod());
-            cuvinte.Add(s);
+                me.cuv[me.numberOfWords].Add(new Nod());
+            me.cuvinte.Add(s);
             me.adaug(me.r, 0, s);
 
             return me;
@@ -32,7 +34,7 @@ namespace ProiectGraphuri
         {
             int l = s.Length;
             me.sterg(me.r, 0, s);
-            cuvinte[me.firstIndexOfString(s)-1] = null;
+            me.cuvinte[me.firstIndexOfString(s) - 1] = null;
             return me;
         }
 
@@ -47,13 +49,13 @@ namespace ProiectGraphuri
             }
             p.copii[s[poz] - 'a'].Nrcnt--;
             sterg(p.copii[s[poz] - 'a'], poz + 1, s);
-            if (p.Nrcnt == 0 && p.Fin == 0 && poz!=0)
+            if (p.Nrcnt == 0 && p.Fin == 0 && poz != 0)
                 p = null;
         }
 
         void adaug(Nod p, int poz, string s)
         {
-            if(poz == s.Length)
+            if (poz == s.Length)
             {
                 p.Fin++;
                 return;
@@ -158,7 +160,7 @@ namespace ProiectGraphuri
 
         int verif(int x, int k, int[] index)
         {
-            for(int j=1; j<k; j++)
+        for (int j = 1; j < k; j++)
             {
                 if (cuv[index[j]][x] != cuv[index[0]][x])
                     return 0;

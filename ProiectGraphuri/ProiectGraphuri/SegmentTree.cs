@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProiectGraphuri
 {
-    class SegmentTree:BinaryTree
+    class SegmentTree : BinaryTree
     {
         private int[] a = new int[4 * NMAX];
         string op;
@@ -36,14 +36,14 @@ namespace ProiectGraphuri
         }
         private void adaug(int st, int dr, int poz, int[] arr)
         {
-            if(st == dr)
+            if (st == dr)
             {
                 a[poz] = arr[st];
                 return;
             }
             int mij = (st + dr) / 2;
             adaug(st, mij, poz * 2, arr);
-            adaug(mij+1, dr, poz * 2 + 1, arr);
+            adaug(mij + 1, dr, poz * 2 + 1, arr);
 
             switch (op)
             {
@@ -54,7 +54,10 @@ namespace ProiectGraphuri
                     a[poz] = a[poz * 2] * a[poz * 2 + 1];
                     break;
                 case "min":
-                    a[poz] = Math.Min(a[poz * 2], a[poz * 2 + 1]);
+                    if (2 * poz + 1 > NmbVertices)
+                        a[poz] = a[poz * 2];
+                    else 
+                        a[poz] = Math.Min(a[poz * 2], a[poz * 2 + 1]);
                     break;
                 case "max":
                     a[poz] = Math.Max(a[poz * 2], a[poz * 2 + 1]);
@@ -73,7 +76,7 @@ namespace ProiectGraphuri
 
         private void modificare(int st, int dr, int i, int poz, int newval)
         {
-            if(st == dr)
+            if (st == dr)
             {
                 a[poz] = newval;
                 return;
@@ -81,7 +84,7 @@ namespace ProiectGraphuri
             int mij = (st + dr) / 2;
             if (i <= mij)
                 modificare(st, mij, i, poz * 2, newval);
-            else modificare(mij+1, dr, i, poz * 2 + 1, newval);
+            else modificare(mij + 1, dr, i, poz * 2 + 1, newval);
             switch (op)
             {
                 case "+":
@@ -91,7 +94,10 @@ namespace ProiectGraphuri
                     a[poz] = a[poz * 2] * a[poz * 2 + 1];
                     break;
                 case "min":
-                    a[poz] = Math.Min(a[poz * 2], a[poz * 2 + 1]);
+                    if (2 * poz + 1 > NmbVertices)
+                        a[poz] = a[poz * 2];
+                    else
+                        a[poz] = Math.Min(a[poz * 2], a[poz * 2 + 1]);
                     break;
                 case "max":
                     a[poz] = Math.Max(a[poz * 2], a[poz * 2 + 1]);
@@ -117,10 +123,12 @@ namespace ProiectGraphuri
                 return a[poz];
             int mij = (star + drar) / 2;
             int val1 = 0, val2 = 0;
+            if (op.Equals("min"))
+                val1 = val2 = 0x3f3f3f3f;
             if (st <= mij)
-                val1 = value(st, Math.Min(dr, mij), star, mij, poz*2);
+                val1 = value(st, Math.Min(dr, mij), star, mij, poz * 2);
             if (dr > mij)
-                val2 = value(Math.Max(st, mij+1), dr, mij+1, drar, poz*2+1);
+                val2 = value(Math.Max(st, mij + 1), dr, mij + 1, drar, poz * 2 + 1);
 
             int val = 0;
             switch (op)

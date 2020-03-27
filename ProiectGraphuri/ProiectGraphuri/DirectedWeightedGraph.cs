@@ -6,59 +6,36 @@ using System.Threading.Tasks;
 
 namespace ProiectGraphuri
 {
-    class DirectedGraph:Graph
+    class DirectedWeightedGraph : WeightedGraph
     {
-        public DirectedGraph()
+        public DirectedWeightedGraph()
         {
             graph = new List<Edge>[NMAX];
             for (int i = 1; i < NMAX; ++i)
                 graph[i] = new List<Edge>();
         }
-
-        /// <param name="n">Number of vertices</param>
-        public DirectedGraph(int n)
+        public DirectedWeightedGraph(int n)
         {
-            graph = new List<Edge>[NMAX];
-            for (int i = 1; i < NMAX; ++i)
-                graph[i] = new List<Edge>();
             nmbVertices = n;
+            graph = new List<Edge>[NMAX];
+            for (int i = 1; i < NMAX; ++i)
+                graph[i] = new List<Edge>();
         }
-
-        /// <param name="n">Number of vertices</param>
-        /// <param name="m">Number of edges</param>
-        /// <param name="edges">For each node the list of nodes it is connected to</param>
-        public DirectedGraph(int n, int m, List<Edge>[] edges)
+        public DirectedWeightedGraph(int n, int m, List<Edge>[] edges)
         {
             nmbVertices = n;
             nmbEdges = m;
-            graph = new List<Edge>[NMAX];
             graph = edges;
         }
-
-        /// <param name="n">Number of vertices</param>
-        /// <param name="m">Number of edges</param>
-        /// <param name="edges">List of edges</param>
-        public DirectedGraph(int n, int m, List<Tuple<int, int>> edges)
+        public DirectedWeightedGraph(DirectedWeightedGraph directed)
         {
-            nmbVertices = n;
-            nmbEdges = m;
-            foreach (var t in edges)
-                addEdge(t.Item1, t.Item2);
-        }
-
-        public DirectedGraph(DirectedGraph dg)
-        {
-            nmbVertices = dg.NmbVertices;
-            nmbEdges = dg.NmbEdges;
-            
-            graph = new List<Edge>[NMAX];
-            for (int i = 1; i < NMAX; ++i)
-                graph[i] = new List<Edge>();
-            graph = dg.Graph;
+            nmbVertices = directed.NmbVertices;
+            nmbEdges = directed.NmbEdges;
+            graph = directed.Graph;
         }
 
         /// <summary>
-        /// Returns the indegree of the vertex.
+        /// Returns the indegreee of the vertex
         /// </summary>
         public int indeg(int vertex)
         {
@@ -69,9 +46,8 @@ namespace ProiectGraphuri
                     if (edge.Vertex2 == vertex)
                         rez++;
             }
-            return rez;
+            return rez; 
         }
-
 
         public override int numberOfIsolatedVertices()
         {
@@ -86,26 +62,28 @@ namespace ProiectGraphuri
         {
             Random rand = new Random();
             for (int i = 1; i < nmbVertices; ++i)
-                for (int j = i+1; j <= nmbVertices; ++j)
+                for (int j = i + 1; j <= nmbVertices; ++j)
                 {
                     int ok = rand.Next(0, 7);
+                    int c2 = rand.Next(-100, 100);
                     if (ok < 4)
                         continue;
                     if (ok == 4)
-                        addEdge(i, j);
-                    if(ok == 5)
+                        addEdge(i, j, c2);
+                    if (ok == 5)
                     {
-                        addEdge(j, i);
-                        addEdge(i, j);
+                        addEdge(j, i, c2);
+                        addEdge(i, j, c2);
                     }
                     if (ok == 6)
-                        addEdge(j, i);
+                        addEdge(j, i, c2);
                 }
         }
 
         public override void addEdge(int from, int to, int weight = 1)
         {
-            graph[from].Add(new Edge(from, to, 1));
+            graph[from].Add(new Edge(from, to, weight));
+            nmbEdges++;
         }
 
         public override void deleteEdge(int from, int to)
@@ -130,29 +108,13 @@ namespace ProiectGraphuri
             int index = 1;
             if (S == null)
                 S = new Stack<int>();
-            else if(S.Any()) S.Clear();
+            else if (S.Any()) S.Clear();
             for (int i = 1; i <= nmbVertices; ++i)
                 if (viz[i] == 0)
                     solve(i, ref viz, ref isInStack, ref lowlink, ref idx, ref index, ref ctc);
 
             return ctc;
 
-        }
-
-        public override bool isConnected()
-        {
-            UndirectedGraph undirectedGraph = new UndirectedGraph(nmbVertices);
-            int[,] adiac = returnAdjiacentMatrix();
-
-            for (int i = 1; i <= nmbVertices; ++i)
-                for (int j = 1; j <= i; ++j)
-                    if (adiac[i, j] == 1 || adiac[j, i] == 1)
-                    {
-                        undirectedGraph.NmbEdges++;
-                        undirectedGraph.addEdge(i, j);
-                    }
-
-            return undirectedGraph.isConnected();
         }
 
         void addCC(ref int[] isInStack, ref int[] lowlink, ref int[] idx, ref List<Tuple<int, List<int>>> ctc)
@@ -203,11 +165,5 @@ namespace ProiectGraphuri
         }
 
 
-        
-        public List<Edge>[] Graph
-        {
-            get { return graph; }
-            set { graph = value; }
-        }
     }
 }

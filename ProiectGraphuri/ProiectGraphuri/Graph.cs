@@ -8,23 +8,72 @@ namespace ProiectGraphuri
 {
     abstract class Graph
     {
+        // GRAD INTERIOR, GRAD EXTERIOR
+
+        public class Edge
+        {
+            int vertex1, vertex2, weight;
+            public Edge() { }
+
+            public Edge(int v1, int v2, int w)
+            {
+                vertex1 = v1;
+                vertex2 = v2;
+                weight = w;
+            }
+            public static bool operator >(Edge first, Edge other)
+            {
+                if (first.weight != other.weight)
+                    return first.weight > other.weight;
+                if (first.vertex2 != other.vertex2)
+                    return first.vertex2 > other.vertex2;
+                return first.vertex1 > other.vertex1;
+            }
+
+            public static bool operator <(Edge first, Edge other)
+            {
+                if (first.weight != other.weight)
+                    return first.weight < other.weight;
+                if (first.vertex2 != other.vertex2)
+                    return first.vertex2 < other.vertex2;
+                return first.vertex1 < other.vertex1;
+
+            }
+
+
+            public int Vertex1
+            {
+                get { return vertex1; }
+                set { vertex1 = value; }
+            }
+            public int Vertex2
+            {
+                get { return vertex2; }
+                set { vertex2 = value; }
+            }
+            public int Weight
+            {
+                get { return weight; }
+                set { weight = value; }
+            }
+
+        }
+
         public const int NMAX = 500;
 
         public int nmbVertices, nmbEdges;
-        public List<int> []graph;
+        public List<Edge> []graph;
 
+        
 
-        virtual public List<int>[] returnGraph() {
-            return graph;
-        }
         virtual public int[,] returnAdjiacentMatrix(){
             int[,] toReturn = new int[NMAX, NMAX];
 
             for(int i = 1; i <= nmbVertices; ++i)
             {
-                foreach (int var in graph[i])
+                foreach (Edge var in graph[i])
                 {
-                    toReturn[i, var] = 1;
+                    toReturn[i, var.Vertex2] = 1;
                 }
             }
 
@@ -48,8 +97,9 @@ namespace ProiectGraphuri
                 toReturn.Add(elemFirst);
                 Q.Dequeue();
 
-                foreach(int v in graph[elemFirst])
+                foreach(Edge edge in graph[elemFirst])
                 {
+                    int v = edge.Vertex2;
                     if(viz[v] == 0)
                     {
                         Q.Enqueue(v);
@@ -65,9 +115,9 @@ namespace ProiectGraphuri
         {
             viz[st] = 1;
             where.Add(st);
-            foreach (int v in graph[st])
-                if (viz[v] == 0)
-                    DFS(v, ref where, ref viz);
+            foreach (Edge edge in graph[st])
+                if (viz[edge.Vertex2] == 0)
+                    DFS(edge.Vertex2, ref where, ref viz);
         }
 
         /// <param name="startVertex">Vertex to start the DFS from.</param>
@@ -81,10 +131,9 @@ namespace ProiectGraphuri
             return toReturn;
         }
         
-
-        /// <param name="type">Type of sort: 0 - minimal, 1 - maximal</param>
+        
         /// <param name = "startVertex">Vertex to start the topological sort</param>
-        virtual public List<int> sortTop(int type, int startVertex)
+        virtual public List<int> sortTop(int startVertex)
         {
             List<int> toReturn = new List<int>();
             Queue<int> Q = new Queue<int>();
@@ -92,10 +141,15 @@ namespace ProiectGraphuri
 
 
             for (int i = 1; i <= nmbVertices; ++i)
-                graph[i].Sort();
+                graph[i].Sort(
+                    delegate(Edge e1, Edge e2)
+                    {
+                        int compare2 = e1.Vertex2.CompareTo(e2.Vertex2);
+                        return compare2;
+                    });
             for (int i = 1; i <= nmbVertices; ++i)
                 if (viz[i] == 0)
-                    sortT(startVertex, ref toReturn, ref viz, type);
+                    sortT(startVertex, ref toReturn, ref viz);
             return toReturn;
         }
 
@@ -138,55 +192,85 @@ namespace ProiectGraphuri
             return toReturn;
         }
 
-        virtual public bool existsPath(int from, int to)
+        virtual public bool existsEdge(int from, int to)
         {
-            foreach (int val in graph[from])
-                if (val == to)
+            foreach (Edge edge in graph[from])
+                if (edge.Vertex2 == to)
                     return true;
             return false;
         }
-
-
+        
+        /// <summary>
+        /// Returns the outdegree of the vertex
+        /// </summary>
+        virtual public int outdeg(int vertex)
+        {
+            return graph[vertex].Count;
+        }
 
 
         abstract public void randomizeGraph();
         
-        /// <param name="from">'From' vertex</param>
-        /// <param name="to">'To' vertex</param>
-        virtual public void addEdge(int from, int to){
-            graph[from].Add(to);
-            graph[to].Add(from);
+        virtual public void addEdge(int from, int to, int weight = 1){
+            graph[from].Add(new Edge(from, to, 1));
+            graph[to].Add(new Edge(to, from, 1));
+            nmbEdges++;
+        }
 
+        virtual public void deleteEdge(int from, int to)
+        {
+            int indexDel = 0;
+            for(int i = 0; i < graph[from].Count; ++i)
+                if(graph[from][i].Vertex2 == to)
+                {
+                    indexDel = i;
+                    break;
+                }
+            graph[from].RemoveAt(indexDel);
+
+            for(int j = 0; j < graph[to].Count; ++j)
+                if(graph[to][j].Vertex2 == from)
+                {
+                    indexDel = j;
+                    break;
+                }
+            graph[to].RemoveAt(indexDel);
+            nmbEdges--;
+        }
+
+
+        public int NmbVertices
+        {
+            get { return nmbVertices; }
+            set { nmbVertices = value; }
+        }
+        public int NmbEdges
+        {
+            get { return nmbEdges; }
+            set { nmbEdges = value; }
         }
 
 
 
 
-
-       
         private void DFS_forCC(int st, ref List<int> where, ref int[] viz, ref int modif)
         {
             viz[st] = 1;
             modif++;
             where.Add(st);
-            foreach (int v in graph[st])
-                if (viz[v] == 0)
-                    DFS_forCC(v, ref where, ref viz, ref modif);
+            foreach (Edge edge in graph[st])
+                if (viz[edge.Vertex2] == 0)
+                    DFS_forCC(edge.Vertex2, ref where, ref viz, ref modif);
         }
 
-        private void sortT(int vertex, ref List<int> where, ref int []viz, int type)
+        private void sortT(int vertex, ref List<int> where, ref int []viz)
         {
             viz[vertex] = 1;
-            if (type == 0)
-            {
-                foreach (int val in graph[vertex])
-                    if (viz[val] == 0)
-                        sortT(val, ref where, ref viz, type);
-            }
-            else for (int i = graph[vertex].Count - 1; i >= 0; --i)
-                    if (viz[graph[vertex][i]] == 0)
-                        sortT(graph[vertex][i], ref where, ref viz, type);
+            foreach (Edge val in graph[vertex])
+                if (viz[val.Vertex2] == 0)
+                    sortT(val.Vertex2, ref where, ref viz);
             where.Add(vertex);
         }
+        
     }
 }

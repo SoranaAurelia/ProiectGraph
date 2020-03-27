@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ProiectGraphuri
 {
-    class Tree:Graph
+    class Tree : Graph
     {
         int r;
         int[] tati = new int[NMAX];
@@ -14,20 +14,19 @@ namespace ProiectGraphuri
         /// </summary>
         /// <param name="n"> Number of vertices</param>
         /// <param name="rad"> The number of the root</param>
-        /// <param name="Val"> The information stored in each node</param>
         /// <param name="Leg"> A list with {parent, child}</param>
-        
-        public Tree(int n, int rad,List<string>Val, List<Tuple<int, int>>Leg)
+
+        public Tree(int n, int rad, List<Tuple<int, int>> Leg)
         {
-            graph = new List<int>[NMAX];
+            graph = new List<Edge>[NMAX];
             for (int i = 0; i <= n; i++)
-                graph[i] = new List<int>();
+                graph[i] = new List<Edge>();
             nmbVertices = n;
             r = rad;
-            foreach(var i in Leg)
+            foreach (var i in Leg)
             {
-                graph[i.Item1].Add(i.Item2);
-                graph[i.Item2].Add(i.Item1);
+                graph[i.Item1].Add(new Edge(i.Item1, i.Item2, 1));
+                graph[i.Item2].Add(new Edge(i.Item2, i.Item1, 1));
             }
             formVectTati();
 
@@ -49,14 +48,14 @@ namespace ProiectGraphuri
             {
                 int el = Q.First();
                 Q.Dequeue();
-                foreach(var i in graph[el])
+                foreach (var i in graph[el])
                 {
-                    
-                    if(viz[i] == 0)
+
+                    if (viz[i.Vertex2] == 0)
                     {
-                        tati[i] = el;
-                        Q.Enqueue(i);
-                        viz[i] = 1;
+                        tati[i.Vertex2] = el;
+                        Q.Enqueue(i.Vertex2);
+                        viz[i.Vertex2] = 1;
                     }
                 }
             }
@@ -101,44 +100,45 @@ namespace ProiectGraphuri
             Q.Enqueue(Tuple.Create(vfStart, 1));
             viz[vfStart] = 1;
 
-            while(Q.Any())
+
+            while (Q.Any())
             {
                 var i = Q.First();
-                foreach(var v in graph[i.Item1])
+                foreach (var v in graph[i.Item1])
                 {
-                    if (viz[v] == 0)
+                    if (viz[v.Vertex2] == 0)
                     {
                         if (i.Item2 + 1 > vmax)
                         {
                             vmax = i.Item2 + 1;
                             toReturn.Clear();
-                            toReturn.Add(v);
+                            toReturn.Add(v.Vertex2);
                         }
-                        else if(i.Item2 + 1 == vmax)
+                        else if (i.Item2 + 1 == vmax)
                         {
-                            toReturn.Add(v);
+                            toReturn.Add(v.Vertex2);
                         }
-                        viz[v] = 1;
-                        Q.Enqueue(Tuple.Create(v, i.Item2+1));
+                        viz[v.Vertex2] = 1;
+                        Q.Enqueue(Tuple.Create(v.Vertex2, i.Item2 + 1));
                     }
-                
+
                 }
                 Q.Dequeue();
             }
-            
+
 
 
             return Tuple.Create(vmax, toReturn);
         }
         public override void randomizeGraph()
         {
-            
+
         }
 
         private List<int> getKids(int i)
         {
             List<int> toReturn = new List<int>();
-            for(int j = 0; j<edges.Count(); j++)
+            for (int j = 0; j < edges.Count(); j++)
             {
                 if (edges[i].Item1 == i)
                     toReturn.Add(edges[i].Item2);
