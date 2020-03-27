@@ -42,6 +42,9 @@ namespace ProiectGraphuri
         {
             nmbVertices = n;
             nmbEdges = m;
+            graph = new List<Edge>[NMAX];
+            for (int i = 1; i < nmbVertices; ++i)
+                graph[i] = new List<Edge>();
             foreach (var t in edges)
                 addEdge(t.Item1, t.Item2);
         }
@@ -85,6 +88,8 @@ namespace ProiectGraphuri
         public override void randomizeGraph()
         {
             Random rand = new Random();
+            if (nmbVertices == 0)
+                nmbVertices = rand.Next(0, 15);
             for (int i = 1; i < nmbVertices; ++i)
                 for (int j = i+1; j <= nmbVertices; ++j)
                 {

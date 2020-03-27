@@ -9,10 +9,8 @@ namespace ProiectGraphuri
     abstract class WeightedGraph:Graph
     {
         
-
         public static int INF = 0x3f3f3f3f;
         
-
 
         public override int[,] returnAdjiacentMatrix()
         {

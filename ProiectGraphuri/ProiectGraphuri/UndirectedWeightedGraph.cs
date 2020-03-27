@@ -40,6 +40,8 @@ namespace ProiectGraphuri
         {
 
             Random rand = new Random();
+            if (nmbVertices == 0)
+                nmbVertices = rand.Next(0, 15);
             for (int i = 1; i < nmbVertices; ++i)
                 for (int j = i + 1; j <= nmbVertices; ++j)
                 {

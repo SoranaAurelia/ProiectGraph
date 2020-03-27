@@ -41,14 +41,26 @@ namespace ProiectGraphuri
         {
             nmbVertices = n;
             nmbEdges = m;
+            graph = new List<Edge>[nmbVertices + 5];
+            for (int i = 1; i <= n; ++i)
+                graph[i] = new List<Edge>();
             foreach (var t in edges)
                 addEdge(t.Item1, t.Item2);
+        }
+
+        public UndirectedGraph(UndirectedGraph ug)
+        {
+            nmbVertices = ug.NmbVertices;
+            nmbEdges = ug.NmbEdges;
+            graph = ug.Graph;
         }
 
         public override void randomizeGraph()
         {
             Random rand = new Random();
-            for(int i = 1; i  < nmbVertices; ++i)
+            if (nmbVertices == 0)
+                nmbVertices = rand.Next(0, 15);
+            for (int i = 1; i  < nmbVertices; ++i)
                 for(int j = i+1; j <= nmbVertices; ++j)
                 {
                     int ok = rand.Next(0, 2);

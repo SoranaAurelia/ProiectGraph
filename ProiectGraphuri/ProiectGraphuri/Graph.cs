@@ -8,7 +8,6 @@ namespace ProiectGraphuri
 {
     abstract class Graph
     {
-        // GRAD INTERIOR, GRAD EXTERIOR
 
         public class Edge
         {

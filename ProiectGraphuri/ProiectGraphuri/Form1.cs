@@ -13,9 +13,7 @@ namespace ProiectGraphuri
     public partial class Form1 : Form
     {
         const int NMAX = 500;
-
         int n, m;
-        
         List<int>[] gr = new List<int>[NMAX];
 
         private void Form1_Load(object sender, EventArgs e)
@@ -23,7 +21,11 @@ namespace ProiectGraphuri
             initAll();
         }
 
+        public Form1()
+        {
+            InitializeComponent();
 
+        }
         private void initAll()
         {
             cbClass.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -39,7 +41,6 @@ namespace ProiectGraphuri
             cbFunction.DropDownStyle = ComboBoxStyle.DropDownList;
             hideInfos();
         }
-        
         void hideInfos()
         {
             labelInfos.Hide();
@@ -56,6 +57,7 @@ namespace ProiectGraphuri
         }
 
 
+        #region Populate Combobox (class + fct)
         private void cbClass_SelectedIndexChanged(object sender, EventArgs e)
         {
             hideInfos();
@@ -120,7 +122,6 @@ namespace ProiectGraphuri
             cbFunction.Items.Add("Connected Components");
             cbFunction.Items.Add("Outdegree of");
         }
-
         void functionAllGraph()
         {
             cbFunction.Items.Add("Adjiacent matrix");
@@ -133,7 +134,6 @@ namespace ProiectGraphuri
             cbFunction.Items.Add("Connected Components");
             cbFunction.Items.Add("Outdegree of");
         }
-
         void functionTrees()
         {
             cbFunction.Items.Add("Adjiacent matrix");
@@ -143,7 +143,6 @@ namespace ProiectGraphuri
             cbFunction.Items.Add("Exists Edge?");
             cbFunction.Items.Add("Outdegree of");
         }
-        
         void functionWUG()
         {
             cbFunction.Items.Add("Roy-Floyd");
@@ -164,6 +163,18 @@ namespace ProiectGraphuri
             cbFunction.Items.Add("Diameter");
             cbFunction.Items.Add("Farthest node from");
         }
+
+        void hideFunctions()
+        {
+            labelAlgorithm.Hide();
+            cbFunction.Hide();
+        }
+        void showFunctions()
+        {
+            labelAlgorithm.Show();
+            cbFunction.Show();
+        }
+
 
 
         private void cbFunction_SelectedIndexChanged(object sender, EventArgs e)
@@ -226,7 +237,9 @@ namespace ProiectGraphuri
                     break;
             }
         }
+        #endregion
 
+        #region Solve Switch
         private void button1_Click(object sender, EventArgs e)
         {
             if(!isOk())
@@ -269,23 +282,10 @@ namespace ProiectGraphuri
             
 
         }
+        #endregion
 
 
-        
-        void hideFunctions()
-        {
-            labelAlgorithm.Hide();
-            cbFunction.Hide();
-        }
-        void showFunctions()
-        {
-            labelAlgorithm.Show();
-            cbFunction.Show();
-        }
-
-
-
-
+        #region Solve fct
         void solveUGfunctions()
         {
             UndirectedGraph ug = new UndirectedGraph(n);
@@ -1117,7 +1117,9 @@ namespace ProiectGraphuri
                 }
             }
         }
+        #endregion
 
+        #region For Res & isOk
         private int createNumb(ref int i, string s, int n)
         {
             int nr = 0;
@@ -1224,11 +1226,8 @@ namespace ProiectGraphuri
             }
         }
 
+        #endregion
+
         
-        public Form1()
-        {
-            InitializeComponent();
-            
-        }
     }
 }
