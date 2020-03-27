@@ -16,3 +16,4 @@ D:\Mirela\Desktop\C#\ProiectGraph\ProiectGraphuri\ProiectGraphuri\obj\Debug\Proi
 D:\Mirela\Desktop\C#\ProiectGraph\ProiectGraphuri\ProiectGraphuri\obj\Debug\ProiectGraphuri.exe
 D:\Mirela\Desktop\C#\ProiectGraph\ProiectGraphuri\ProiectGraphuri\obj\Debug\ProiectGraphuri.pdb
 D:\Mirela\Desktop\C#\ProiectGraph\ProiectGraphuri\ProiectGraphuri\obj\Debug\ProiectGraphuri.Form1.resources
+D:\Proiecte_VS\ProiectGraph\ProiectGraphuri\ProiectGraphuri\obj\Debug\ProiectGraphuri.Form1.resources

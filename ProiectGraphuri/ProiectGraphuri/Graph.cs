@@ -132,8 +132,7 @@ namespace ProiectGraphuri
         }
         
         
-        /// <param name = "startVertex">Vertex to start the topological sort</param>
-        virtual public List<int> sortTop(int startVertex)
+        virtual public List<int> sortTop()
         {
             List<int> toReturn = new List<int>();
             Queue<int> Q = new Queue<int>();
@@ -149,7 +148,7 @@ namespace ProiectGraphuri
                     });
             for (int i = 1; i <= nmbVertices; ++i)
                 if (viz[i] == 0)
-                    sortT(startVertex, ref toReturn, ref viz);
+                    sortT(i, ref toReturn, ref viz);
             return toReturn;
         }
 

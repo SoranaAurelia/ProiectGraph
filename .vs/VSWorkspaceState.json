@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\ProiectGraphuri"
+    "\\ProiectGraphuri",
+    "\\ProiectGraphuri\\ProiectGraphuri"
   ],
-  "SelectedNode": "\\ProiectGraphuri\\ProiectGraphuri.sln",
+  "SelectedNode": "\\ProiectGraphuri\\ProiectGraphuri\\BinarySearchTree.cs",
   "PreviewInSolutionExplorer": false
 }

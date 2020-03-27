@@ -68,7 +68,7 @@ namespace ProiectGraphuri
             switch (cbClass.Text.ToString())
             {
                 case "Undirected Graph":
-                    functionAllGraph();
+                    functionUdGGraph();
                     break;
                 case "Directed Graph":
                     functionAllGraph();
@@ -76,7 +76,7 @@ namespace ProiectGraphuri
                     cbFunction.Items.Add("Strongly Connected Components");
                     break;
                 case "Weighted Undirected Graph":
-                    functionAllGraph();
+                    functionUdGGraph();
                     functionWUG();
                     break;
                 case "Weighted Directed Graph":
@@ -107,6 +107,18 @@ namespace ProiectGraphuri
                     break;
 
             }
+        }
+
+        void functionUdGGraph()
+        {
+            cbFunction.Items.Add("Adjiacent matrix");
+            cbFunction.Items.Add("BFS Array");
+            cbFunction.Items.Add("DFS Array");
+            cbFunction.Items.Add("Number of isolated vertices");
+            cbFunction.Items.Add("Is Connected?");
+            cbFunction.Items.Add("Exists Edge?");
+            cbFunction.Items.Add("Connected Components");
+            cbFunction.Items.Add("Outdegree of");
         }
 
         void functionAllGraph()
@@ -176,15 +188,6 @@ namespace ProiectGraphuri
                     labelInfo1.Text = "Starting vertex: ";
                     labelInfo1.Show();
                     tbInfo1.Show();
-                    break;
-                case "Topological Sort":
-                    labelInfos.Show();
-                    labelInfo1.Text = "Starting vertex: ";
-                    //labelInfo2.Text = "Type (0 - max, 1 - min):";
-                    labelInfo1.Show();
-                    //labelInfo2.Show();
-                    tbInfo1.Show();
-                    //tbInfo2.Show();
                     break;
                 case "Exists Edge?":
                     labelInfos.Show();
@@ -365,10 +368,8 @@ namespace ProiectGraphuri
                     rez = stringFromList(dfs);
                     break;
                 case "Topological Sort":
-                    int t1 = Convert.ToInt32(tbInfo1.Text.ToString());
-                  //  int t2 = Convert.ToInt32(tbInfo2.Text.ToString());
-                    if (t1 > ug.NmbVertices || t1 < 1) { MessageBox.Show("Starting vertex must be from 1 to n."); return; }
-                    List<int> top = ug.sortTop(t1);
+                  
+                    List<int> top = ug.sortTop();
                     rez = stringFromList(top);
                     break;
                 case "Number of isolated vertices":
@@ -491,10 +492,8 @@ namespace ProiectGraphuri
                     rez = stringFromList(dfs);
                     break;
                 case "Topological Sort":
-                    int t1 = Convert.ToInt32(tbInfo1.Text.ToString());
-                    if (t1 > dg.NmbVertices || t1 < 1) { MessageBox.Show("Starting vertex must be from 1 to n."); return; }
-                    
-                    List<int> top = dg.sortTop(t1);
+                   
+                    List<int> top = dg.sortTop();
                     rez = stringFromList(top);
                     break;
                 case "Number of isolated vertices":
@@ -643,10 +642,8 @@ namespace ProiectGraphuri
                     rez = stringFromList(dfs);
                     break;
                 case "Topological Sort":
-                    int t1 = Convert.ToInt32(tbInfo1.Text.ToString());
-                    if (t1 > uwg.NmbVertices || t1 < 1) { MessageBox.Show("Starting vertex must be from 1 to n."); return; }
-                    
-                    List<int> top = uwg.sortTop(t1);
+                  
+                    List<int> top = uwg.sortTop();
                     rez = stringFromList(top);
                     break;
                 case "Number of isolated vertices":
@@ -807,10 +804,8 @@ namespace ProiectGraphuri
                     rez = stringFromList(dfs);
                     break;
                 case "Topological Sort":
-                    int t1 = Convert.ToInt32(tbInfo1.Text.ToString());
-                    if (t1 > dwg.NmbVertices || t1 < 1) { MessageBox.Show("Starting vertex must be from 1 to n."); return; }
-                    
-                    List<int> top = dwg.sortTop(t1);
+                
+                    List<int> top = dwg.sortTop();
                     rez = stringFromList(top);
                     break;
                 case "Number of isolated vertices":
@@ -947,10 +942,8 @@ namespace ProiectGraphuri
                     rez = stringFromList(dfs);
                     break;
                 case "Topological Sort":
-                    int t1 = Convert.ToInt32(tbInfo1.Text.ToString());
-                    //  int t2 = Convert.ToInt32(tbInfo2.Text.ToString());
-                    if (t1 > t.NmbVertices || t1 < 1) { MessageBox.Show("Starting vertex must be from 1 to n."); return; }
-                    List<int> top = t.sortTop(t1);
+                 
+                    List<int> top = t.sortTop();
                     rez = stringFromList(top);
                     break;
                 case "Exists Edge?":
