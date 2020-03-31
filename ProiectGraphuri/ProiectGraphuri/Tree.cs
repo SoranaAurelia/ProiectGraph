@@ -37,7 +37,7 @@ namespace ProiectGraphuri
             nmbVertices = 0;
             nmbEdges = 0;
             graph = new List<Edge>[NMAX];
-            for (int i = 0; i <= NMAX; i++)
+            for (int i = 0; i < NMAX; i++)
                 graph[i] = new List<Edge>();
         }
 
@@ -137,7 +137,7 @@ namespace ProiectGraphuri
         }
         public override void randomizeGraph()
         {
-            Random r = new Random();
+            /**Random r = new Random();
             int n = r.Next(15);
             graph = new List<Edge>[NMAX];
             for (int i = 0; i <= n; i++)
@@ -157,7 +157,7 @@ namespace ProiectGraphuri
                     tati[val] = i;
                     graph[i].Add(val);
                 }
-            }
+            }**/
         }
 
         private List<int> getKids(int i)

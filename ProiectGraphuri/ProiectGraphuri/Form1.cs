@@ -1001,7 +1001,8 @@ namespace ProiectGraphuri
                 }
                 else if (split[0].Equals("LP"))
                 {
-                    tbRez.Text = tbRez.Text + t.longestPrefix(split[1]) + "\r\n";
+                    int val = t.longestPrefix(split[1]);
+                    tbRez.Text = tbRez.Text + val + " " + split[1].Substring(0, val) + "\r\n";
                 }
                 else
                 {

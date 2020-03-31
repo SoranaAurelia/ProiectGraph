@@ -138,8 +138,8 @@ namespace ProiectGraphuri
                     return "nu exista cuvantul cu index " + index[j]; 
                 if(cuvinte[index[j]-1] == null)
                     return "nu exista cuvantul cu index " + index[j];
-                if (cuv[index[j]].Count < vmin)
-                    vmin = cuv[index[j]].Count;
+                if (cuvinte[index[j]-1].Length < vmin)
+                    vmin = cuvinte[index[j]-1].Length;
             }
 
             int lg;
@@ -155,7 +155,7 @@ namespace ProiectGraphuri
                 }
             if (ok == 0 && verif(0, k, index) == 0)
                 return "";
-            return cuvinte[index[0]].Substring(0, i+1);
+            return cuvinte[index[0]-1].Substring(0, i+1);
         }
 
         int verif(int x, int k, int[] index)
