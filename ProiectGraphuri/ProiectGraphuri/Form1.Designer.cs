@@ -113,6 +113,7 @@
             this.tbRez.Name = "tbRez";
             this.tbRez.Size = new System.Drawing.Size(168, 271);
             this.tbRez.TabIndex = 8;
+            this.tbRez.WordWrap = false;
             // 
             // button1
             // 
