@@ -15,6 +15,7 @@ namespace ProiectGraphuri
         const int NMAX = 500;
         int n, m;
         List<int>[] gr = new List<int>[NMAX];
+        DrawHelper drawHelper = new DrawHelper();
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -28,6 +29,7 @@ namespace ProiectGraphuri
         }
         private void initAll()
         {
+            drawHelper.graphics = panel3.CreateGraphics();
             cbClass.DropDownStyle = ComboBoxStyle.DropDownList;
             cbClass.Items.Add("Undirected Graph");
             cbClass.Items.Add("Directed Graph");
@@ -55,6 +57,23 @@ namespace ProiectGraphuri
             tbInfo3.Hide();
 
         }
+
+        #region By Design
+        private void panel3_MouseClick(object sender, MouseEventArgs e)
+        {
+            //    drawCircle(e);
+            if (e.Button == MouseButtons.Left && ModifierKeys != Keys.Shift)
+                drawHelper.drawVertex(e.X, e.Y);
+            else if (e.Button == MouseButtons.Left && ModifierKeys == Keys.Shift)
+            {
+                drawHelper.selectVertex(e.X, e.Y);
+            }
+            else if (e.Button == MouseButtons.Right)
+                drawHelper.Clear();
+        }
+        
+        #endregion
+
 
 
         #region Populate Combobox (class + fct)
@@ -242,12 +261,22 @@ namespace ProiectGraphuri
         #region Solve Switch
         private void button1_Click(object sender, EventArgs e)
         {
-            if(!isOk())
-                return;
-            if (!cbClass.Text.Equals("Trie") && !cbClass.Text.Equals("Binary Search Tree") && !cbClass.Text.Equals("Segment Tree"))
+            if (tabControl.SelectedIndex == 0)
             {
-                n = Convert.ToInt32(tbn.Text.ToString());
-                m = Convert.ToInt32(tbm.Text.ToString());
+                if (!isOk())
+                    return;
+                if (!cbClass.Text.Equals("Trie") && !cbClass.Text.Equals("Binary Search Tree") && !cbClass.Text.Equals("Segment Tree"))
+                {
+                    n = Convert.ToInt32(tbn.Text.ToString());
+                    m = Convert.ToInt32(tbm.Text.ToString());
+                }
+            }
+            if(tbInfo1.Visible == true && tbInfo1.Text.Equals("") ||
+                tbInfo2.Visible == true && tbInfo2.Text.Equals("") ||
+                tbInfo3.Visible == true && tbInfo3.Text.Equals(""))
+            {
+                MessageBox.Show("Please complete all text boxes.");
+                return;
             }
             switch(cbClass.Text.ToString())
             {
@@ -290,65 +319,68 @@ namespace ProiectGraphuri
         {
             UndirectedGraph ug = new UndirectedGraph(n);
             string rez = "";
-            string[] lines = tbMuchii.Lines;
-            if(lines.Length != m)
+            if (tabControl.SelectedIndex == 0)
             {
-                MessageBox.Show("Please make sure you entered the correct number of edges! No additional lines needed.");
-                return;
-            }
-            int nr1 = 0, nr2 = 0, seenSpaces = 0;
-            foreach(string temp in lines)
-            {
-                nr1 = 0;
-                nr2 = 0;
-                seenSpaces = 0;
-                int l = temp.Length;
-                for(int i = 0; i < l; ++i)
+                string[] lines = tbMuchii.Lines;
+                if (lines.Length != m)
                 {
-                    if (temp[i] >= '0' && temp[i] <= '9')
+                    MessageBox.Show("Please make sure you entered the correct number of edges! No additional lines needed.");
+                    return;
+                }
+                int nr1 = 0, nr2 = 0, seenSpaces = 0;
+                foreach (string temp in lines)
+                {
+                    nr1 = 0;
+                    nr2 = 0;
+                    seenSpaces = 0;
+                    int l = temp.Length;
+                    for (int i = 0; i < l; ++i)
                     {
-                        if (seenSpaces == 0)
-                            nr1 = nr1 * 10 + (temp[i] - '0');
-                        else nr2 = nr2 * 10 + (temp[i] - '0');
-                    }
-                    else if (temp[i] == ' ')
-                    {
-                        seenSpaces++;
-                        if (seenSpaces > 1)
+                        if (temp[i] >= '0' && temp[i] <= '9')
                         {
-                            MessageBox.Show("Please don't input additional spaces.");
+                            if (seenSpaces == 0)
+                                nr1 = nr1 * 10 + (temp[i] - '0');
+                            else nr2 = nr2 * 10 + (temp[i] - '0');
+                        }
+                        else if (temp[i] == ' ')
+                        {
+                            seenSpaces++;
+                            if (seenSpaces > 1)
+                            {
+                                MessageBox.Show("Please don't input additional spaces.");
+                                return;
+                            }
+                        }
+                        else if (temp[i] != '\r' && temp[i] != '\n')
+                        {
+                            MessageBox.Show("Please input only accepted characters.");
                             return;
                         }
                     }
-                    else if(temp[i] != '\r' && temp[i] != '\n')
+                    if (seenSpaces == 0)
                     {
-                        MessageBox.Show("Please input only accepted characters.");
+                        MessageBox.Show("Please note that every line of the input should be formed of 2 numbers.");
                         return;
                     }
-                }
-                if (seenSpaces == 0)
-                {
-                    MessageBox.Show("Please note that every line of the input should be formed of 2 numbers.");
-                    return;
-                }
-                else
-                {
-                    if(nr1 > n || nr2 > n || nr1 < 1 || nr2 < 1)
+                    else
                     {
-                        MessageBox.Show("All vertices must be between 1 and n.");
-                        return;
+                        if (nr1 > n || nr2 > n || nr1 < 1 || nr2 < 1)
+                        {
+                            MessageBox.Show("All vertices must be between 1 and n.");
+                            return;
+                        }
+                        ug.addEdge(nr1, nr2);
                     }
-                    ug.addEdge(nr1, nr2);
                 }
             }
-
+            else ug = drawHelper.formed_ug;
             switch(cbFunction.Text.ToString())
             {
                 case "Adjiacent matrix":
                     int[,] ad = ug.returnAdjiacentMatrix();
-                    for(int i = 1; i <= n; ++i)
+                    for(int i = 1; i <= ug.nmbVertices; ++i)
                     {
-                        for (int j = 1; j <= n; ++j)
+                        for (int j = 1; j <= ug.nmbVertices; ++j)
                             rez = rez + ad[i, j] + " ";
                         rez = rez + "\r\n";
                     }
@@ -1143,6 +1175,28 @@ namespace ProiectGraphuri
             foreach (var el in list)
                 rez = rez + el + " ";
             return rez;
+        }
+
+
+        private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(tabControl.SelectedIndex == 0)
+            {
+                drawHelper.Clear();
+                drawHelper.formed_ug.clear();
+                cbClass.SelectedIndex = 0;
+                cbClass.Enabled = true;
+                tbRez.Clear();
+            }
+            else
+            {
+                tbn.Clear();
+                tbm.Clear();
+                tbMuchii.Clear();
+                cbClass.SelectedIndex = 0;
+                cbClass.Enabled = false;
+                tbRez.Clear();
+            }
         }
 
 

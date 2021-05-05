@@ -236,6 +236,12 @@ namespace ProiectGraphuri
             nmbEdges--;
         }
 
+        virtual public void clear()
+        {
+            for (int i = 1; i <= nmbVertices; ++i)
+                graph[i].Clear();
+            nmbVertices = nmbEdges = 0;
+        }
 
         public int NmbVertices
         {
